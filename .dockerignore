@@ -1,0 +1,13 @@
+node_modules
+Dockerfile
+test
+swagger
+coverage
+README.md
+.dockerignore
+.git
+.gitignore
+.eslintrc.js
+.prettierrc
+.env
+.env.example

@@ -1,0 +1,69 @@
+version: '3.1'
+
+services:
+  api:
+    build: .
+    container_name: luizalabs-poc
+    depends_on:
+      - mongodb
+      - redis
+    ports:
+    - 3333:3333
+    environment:
+      NODE_ENV: production
+      PORT: 3333
+      MONGODB_URL: mongodb://root:root@mongodb:27017
+      MONGODB_DB: luizalabs
+      API_LUIZALABS: http://challenge-api.luizalabs.com/api/product
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: luizalabs
+    networks:
+      - luizalabs-net
+  mongodb:
+    image: mongo:3.6
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    networks:
+      - luizalabs-net
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - 8082:8082
+    depends_on:
+      - mongodb
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      VCAP_APP_PORT: 8082
+    networks:
+      - luizalabs-net
+  redis:
+    image: redis:5
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - luizalabs-net
+  redis-commander:
+    image: rediscommander/redis-commander
+    container_name: redis-commander
+    ports:
+      - 8081:8081
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    networks:
+      - luizalabs-net
+    depends_on:
+      - redis
+
+networks:
+  luizalabs-net:
+    driver: bridge

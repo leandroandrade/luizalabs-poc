@@ -1,0 +1,380 @@
+swagger: "2.0"
+info:
+  description: "Documentação da API de Favoritos proposta pela equipe Luizalabs."
+  version: "1.0.0"
+  title: "Swagger LuizaLabs-POC"
+  contact:
+    email: "leandro.andrade2588@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:3333"
+basePath: "/api/v1"
+tags:
+  - name: "token"
+    description: "Serviço para obter token de autenticação"
+  - name: "clientes"
+    description: "Serviços para manter clientes"
+  - name: "favoritos"
+    description: "Serviços para manter os produtos favoritos do cliente"
+schemes:
+  - "http"
+paths:
+  /auth:
+    post:
+      tags:
+        - "token"
+      summary: "Serviço de autenticação"
+      description: "Realiza a autenticação utilizando username, password e role. Caso o atributo role não seja informado, a autenticação será realizada utilizando a role 'GUEST'. O acesso a todos os serviço somente é permitido para
+      tokens de autenticação com a role 'ADMIN'."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Objeto necessário para realizar o login."
+          required: true
+          schema:
+            $ref: "#/definitions/Auth"
+      responses:
+        200:
+          description: "Autenticação realizada com sucesso"
+          schema:
+            $ref: "#/definitions/Token"
+        400:
+          description: "Erros de validação"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        500:
+          description: "Erros no servidor"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+  /clientes:
+    post:
+      tags:
+        - "clientes"
+      summary: "Serviço para registrar cliente"
+      description: "Realiza o registro do cliente na base de dados. Cada cliente é identificado como único utilizando o endereço de e-mail."
+      security:
+        - jwt: [ ]
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Objeto cliente necessário para cadastro."
+          required: true
+          schema:
+            $ref: "#/definitions/ClienteRegistro"
+      responses:
+        201:
+          description: "Cliente registrado com sucesso."
+          schema:
+            $ref: "#/definitions/Cliente"
+        400:
+          description: "Erros de validação"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        500:
+          description: "Erros no servidor"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+    get:
+      tags:
+        - "clientes"
+      summary: "Serviço para retornar a lista de clientes registrados"
+      description: "Retorna a lista paginada de clientes registrados. Os valores default para os parâmetros 'pagina' e 'elementosPorPagina' são 1 e 5, respectivamente."
+      security:
+        - jwt: [ ]
+      produces:
+        - "application/json"
+      parameters:
+        - name: "pagina"
+          in: "query"
+          description: "Numero da pagina a ser pesquisada."
+          required: false
+          type: "number"
+        - name: "elementosPorPagina"
+          in: "query"
+          description: "Quantidade de elementos a ser retornado na pesquisa paginada."
+          required: false
+          type: "number"
+      responses:
+        200:
+          description: "Pesquisa realizada com sucesso."
+          schema:
+            $ref: "#/definitions/ResultadoPaginadoClientes"
+        400:
+          description: "Erros de validação"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        500:
+          description: "Erros no servidor"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+  '/clientes/{id}':
+    put:
+      tags:
+        - "clientes"
+      summary: "Serviço para atualizar clientes"
+      description: "Permite atualizar os dados do cliente."
+      security:
+        - jwt: [ ]
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "Identificador único do cliente."
+          type: "string"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Objeto cliente necessário para atualização"
+          required: true
+          schema:
+            $ref: "#/definitions/ClienteAtualiza"
+      responses:
+        204:
+          description: "Cliente atualizado com sucesso."
+        400:
+          description: "Erros de validação"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        500:
+          description: "Erros no servidor"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+    delete:
+      tags:
+        - "clientes"
+      summary: "Serviço para remover o registro do cliente"
+      description: "Permite excluir do cliente. Com a exclusão, os produtos registrados como favoritos também serão excluídos."
+      security:
+        - jwt: [ ]
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "Identificador único do cliente."
+          type: "string"
+          required: true
+      responses:
+        204:
+          description: "Cliente e produtos favoritos removidos com sucesso."
+        400:
+          description: "Erros de validação."
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        500:
+          description: "Erros no servidor."
+          schema:
+            $ref: "#/definitions/ErrorModel"
+  '/clientes/{id}/favoritos/produtos':
+    post:
+      tags:
+        - "favoritos"
+      summary: "Registra um produto como favorito."
+      description: "Permite registar um produto como favorito para um determinado usuário. Os produtos disponíveis para registro podem ser obtidos em http://challenge-api.luizalabs.com/api/product/?page=1"
+      security:
+        - jwt: [ ]
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          type: "string"
+          required: true
+          description: "Identificador unico do cliente"
+        - in: "body"
+          name: "body"
+          description: "Objeto produto necessário para cadastro"
+          required: true
+          schema:
+            $ref: "#/definitions/Produto"
+      responses:
+        200:
+          description: "Produto registrado com sucesso."
+          schema:
+              $ref: '#/definitions/MensagemSucesso'
+        400:
+          description: "Erros de validação"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        500:
+          description: "Erros no servidor"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+    get:
+      tags:
+        - "favoritos"
+      summary: "Serviço que pesquisa os produtos favoritos do cliente"
+      description: "Retorna a lista paginada de produtos favoritos de um determinado cliente. Os valores default para os parâmetros 'pagina' e 'elementosPorPagina' são 1 e 5, respectivamente."
+      security:
+        - jwt: [ ]
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          type: "string"
+          required: true
+          description: "Identificador único do cliente"
+      responses:
+        200:
+          description: "Pesquisa realizada com sucesso."
+          schema:
+            $ref: "#/definitions/ResultadoPaginadoProdutos"
+        400:
+          description: "Erros de validação"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        500:
+          description: "Erros no servidor"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+  '/clientes/{idCliente}/produtos/{idProduto}/favoritos':
+    delete:
+      tags:
+        - "favoritos"
+      summary: "Serviço para remover um produto da lista de favoritos do cliente."
+      description: "Permite remover um produto da lista de produtos favoritos de um determinado cliente."
+      security:
+        - jwt: [ ]
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "idCliente"
+          type: "string"
+          required: true
+          description: "Identificador único do cliente"
+        - in: "path"
+          name: "idProduto"
+          type: "string"
+          required: true
+          description: "Identificador único do produto"
+      responses:
+        204:
+          description: "Produto removido com sucesso."
+        400:
+          description: "Erros de validação"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+        500:
+          description: "Erros no servidor"
+          schema:
+            $ref: "#/definitions/ErrorModel"
+securityDefinitions:
+  jwt:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  Auth:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      password:
+        type: "string"
+      role:
+        type: "string"
+  Token:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+
+  Cliente:
+    type: "object"
+    properties:
+      nome:
+        type: "string"
+      email:
+        type: "string"
+      id:
+        type: "string"
+  ClienteRegistro:
+    type: "object"
+    properties:
+      nome:
+        type: "string"
+      email:
+        type: "string"
+  ClienteAtualiza:
+    type: "object"
+    properties:
+      nome:
+        type: "string"
+  Produto:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      price:
+        type: "number"
+      image:
+        type: "string"
+      title:
+        type: "string"
+  Erro:
+    type: "object"
+    properties:
+      mensagem:
+        type: "string"
+  MensagemSucesso:
+    type: "object"
+    properties:
+      mensagem:
+        type: "string"
+  ErrorModel:
+    type: "object"
+    properties:
+      mensagens:
+        type: array
+        items:
+          $ref: "#/definitions/Erro"
+  ResultadoPaginadoClientes:
+    type: "object"
+    properties:
+      totalRegistros:
+        type: "integer"
+      paginaAtual:
+        type: "integer"
+      totalPaginas:
+        type: "integer"
+      tamanho:
+        type: "integer"
+      resultado:
+        type: "array"
+        items:
+          $ref: "#/definitions/Cliente"
+  ResultadoPaginadoProdutos:
+    type: "object"
+    properties:
+      totalRegistros:
+        type: "integer"
+      paginaAtual:
+        type: "integer"
+      totalPaginas:
+        type: "integer"
+      tamanho:
+        type: "integer"
+      resultado:
+        type: "array"
+        items:
+          $ref: "#/definitions/Produto"

@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "e672bea9-8576-47e4-a60a-43aa7b05348d",
+		"name": "Luizalabs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1- get token auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"luizalabs\",\n    \"password\": \"luizalabs\",\n    \"role\": \"ADMIN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/api/v1/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2- registra cliente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Luiza La\",\n    \"email\": \"luizalabs@email.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3- lista de clientes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.1- lista de clientes paginado",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes?pagina=1&registrosPorPagina=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "registrosPorPagina",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4- detalha cliente",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes/b3c44bae-8d08-48be-b3f8-88139d38fd83",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"b3c44bae-8d08-48be-b3f8-88139d38fd83"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5- atualiza cliente",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Luiza Labs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes/b3c44bae-8d08-48be-b3f8-88139d38fd83",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"b3c44bae-8d08-48be-b3f8-88139d38fd83"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6- remove cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes/b3c44bae-8d08-48be-b3f8-88139d38fd83",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"b3c44bae-8d08-48be-b3f8-88139d38fd83"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7- registra produto favorito",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"price\": 999.0,\n            \"image\": \"http://challenge-api.luizalabs.com/images/8fe61da1-af55-0726-ae46-c5f31abfc1bd.jpg\",\n            \"brand\": \"plumatex\",\n            \"id\": \"8fe61da1-af55-0726-ae46-c5f31abfc1bd\",\n            \"title\": \"Colchão Plumatex Casal Mola Pocket 138x188cm\"\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes/b3c44bae-8d08-48be-b3f8-88139d38fd83/favoritos/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"b3c44bae-8d08-48be-b3f8-88139d38fd83",
+						"favoritos",
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8- lista produtos favoritos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes/b3c44bae-8d08-48be-b3f8-88139d38fd83/favoritos/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"b3c44bae-8d08-48be-b3f8-88139d38fd83",
+						"favoritos",
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9- lista produtos favoritos paginado",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes/b3c44bae-8d08-48be-b3f8-88139d38fd83/favoritos/produtos?pagina=1&registrosPorPagina=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"b3c44bae-8d08-48be-b3f8-88139d38fd83",
+						"favoritos",
+						"produtos"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "registrosPorPagina",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10- remove produto favoritos",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkwZjhmZWY2LTk3OGQtNDNiYi1hNGIxLTgzOWUxNDE4MjA2ZCIsInVzZXJuYW1lIjoibHVpemFsYWJzIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjAzNjUxODc2LCJleHAiOjE2MDQyNTY2NzZ9.UfRtn__5oNkXbI676VDH-NoNJoFBeKgKlWr4uZESOvE"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/clientes/b3c44bae-8d08-48be-b3f8-88139d38fd83/produtos/0e062300-ac6f-ba7a-18c0-6fbed3af0498/favoritos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"b3c44bae-8d08-48be-b3f8-88139d38fd83",
+						"produtos",
+						"0e062300-ac6f-ba7a-18c0-6fbed3af0498",
+						"favoritos"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
