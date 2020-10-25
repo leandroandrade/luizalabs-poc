@@ -6,7 +6,7 @@ Projeto desafio proposto pela LuizaLabs.
 A proposta do projeto é gerenciar clientes e os produtos que esse possa ter como favoritos. O projeto implementa um conjunto serviços utilizando o
 modelo arquitetural REST.
 
-A documentação dos serviços disponibilizados pela API pode ser visualizada [aqui](https://editor.swagger.io/?url=https://github.com/leandroandrade/luizalabs-poc/swagger/luizalabs-poc.yaml)
+A documentação dos serviços disponibilizados pela API pode ser visualizada [aqui](https://github.com/leandroandrade/luizalabs-poc/tree/main/swagger/)
 
 # Começando
 
