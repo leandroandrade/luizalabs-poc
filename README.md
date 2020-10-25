@@ -81,7 +81,7 @@ Base de dados Redis: _http://localhost:8081/_
 
 ### Exemplos requests
 
-Exemplos dos requests para os serviços que a aplicação disponibiliza estão no diretório _/postman_ no diretório raiz do projeto.
+Exemplos dos requests para os serviços que a aplicação disponibiliza estão disponíveis [aqui](https://github.com/leandroandrade/luizalabs-poc/tree/main/postman)
 
 ### Autenticação
 
