@@ -3,7 +3,7 @@ Projeto desafio proposto pela LuizaLabs.
 
 # Visão geral
 
-A proposta do projeto é gerenciar clientes e os produtos que esse possa ter como favoritos. O projeto implementa um conjunto serviços utilizando o
+A proposta do projeto é gerenciar clientes e os produtos que eles possam ter como favoritos. O projeto implementa um conjunto de serviços utilizando o
 modelo arquitetural REST.
 
 A documentação dos serviços disponibilizados pela API pode ser visualizada [aqui](https://github.com/leandroandrade/luizalabs-poc/tree/main/swagger/)
@@ -12,7 +12,7 @@ A documentação dos serviços disponibilizados pela API pode ser visualizada [a
 
 ### Requisitos para execução da aplicação
 
-1. Ambiente Docker funcionando na máquina local.
+1. Ambiente Docker funcionando.
 
 #### Executando a aplicação:
 
@@ -35,7 +35,7 @@ docker-compose stop
 
 ### Desenvolvimento em ambiente local
 
-Verificar se possui o Node.js **v10** instalado e inicializar as dependências de infraestrutura que o projeto utiliza, executar os comandos abaixo no diretório raiz:
+Certificar-se de que possui o Node.js **v10** instalado. Em seguida, inicializar as dependências de infraestrutura que o projeto utiliza e executar os comandos abaixo no diretório raiz:
 
 1. Instalar dependências:
 ```
@@ -85,7 +85,7 @@ Exemplos dos requests para os serviços que a aplicação disponibiliza estão d
 
 ### Autenticação
 
-Todos os serviços disponibilizados pela API necessitam de um token de autenticação válido. Para obter o token, solicitar pelo endereço _http://localhost:3333/api/v1/auth_. Segue abaixo o payload
+Todos os serviços disponibilizados pela API necessitam de um token de autenticação válido. Para obter o token, solicite pelo endereço _http://localhost:3333/api/v1/auth_. Segue abaixo o payload
 de autenticação:
 
 ```
