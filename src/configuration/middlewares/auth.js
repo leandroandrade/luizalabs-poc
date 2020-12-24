@@ -2,13 +2,12 @@ const { promisify } = require('util');
 const verify = promisify(require('jsonwebtoken').verify);
 
 const { JWT_SECRET } = process.env;
-
-const { createError } = require('../../commons/http-error');
+const { BusinessError } = require('../../commons/errors');
 
 module.exports = async (req, res, next) => {
     const token = req.headers.authorization;
     if (!token) {
-        return next(createError(401, 'Token não informado!'));
+        throw new BusinessError('Token não informado!', 401);
     }
 
     try {
@@ -19,6 +18,6 @@ module.exports = async (req, res, next) => {
 
         return next();
     } catch (err) {
-        return next(createError(401, 'Token invalido!'));
+        throw new BusinessError('Token invalido!', 401);
     }
 };

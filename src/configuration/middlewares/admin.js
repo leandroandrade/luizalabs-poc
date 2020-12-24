@@ -1,13 +1,13 @@
-const { createError } = require('../../commons/http-error');
+const { BusinessError } = require('../../commons/errors');
 
 module.exports = async (req, res, next) => {
     const { role } = req;
     if (!role) {
-        return next(createError(401, 'Acesso negado'));
+        throw new BusinessError('Acesso negado', 401);
     }
 
     if (role !== 'ADMIN') {
-        return next(createError(401, 'Você não possui privilégios para executar essa ação'));
+        throw new BusinessError('Você não possui privilégios para executar essa ação', 401);
     }
 
     return next();
