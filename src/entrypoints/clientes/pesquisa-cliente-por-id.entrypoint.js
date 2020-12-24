@@ -1,4 +1,4 @@
-const { createError } = require('../../commons/http-error');
+const { BusinessError } = require('../../commons/errors');
 const clientes = require('../../dataproviders/clientes/clientes.data');
 
 exports.pesquisaClientePorID = async (req, res, next) => {
@@ -6,7 +6,7 @@ exports.pesquisaClientePorID = async (req, res, next) => {
 
     const cliente = await clientes.porID(id);
     if (!cliente) {
-        return next(createError(404, `Cliente com id ${id} não encontrado`));
+        throw new BusinessError(`Cliente com id ${id} não encontrado`, 404);
     }
     return res.json(cliente);
 };

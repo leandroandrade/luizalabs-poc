@@ -1,6 +1,6 @@
 const { sign } = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
-const { createError } = require('../../commons/http-error');
+const { BusinessError } = require('../../commons/errors');
 
 const { JWT_SECRET } = process.env;
 
@@ -8,7 +8,7 @@ exports.geraTokenAcesso = async (req, res, next) => {
     const { username, password, role } = req.body;
 
     if (!username || !password) {
-        return next(createError(401, 'Usuario e senha devem ser informados!'));
+        throw new BusinessError('Usuario e senha devem ser informados!', 401);
     }
 
     if (username === 'luizalabs' && password === 'luizalabs') {
@@ -21,5 +21,5 @@ exports.geraTokenAcesso = async (req, res, next) => {
         });
     }
 
-    return next(createError(401, 'Usuario ou senha inválidos'));
+    throw new BusinessError('Usuario ou senha inválidos', 401);
 };

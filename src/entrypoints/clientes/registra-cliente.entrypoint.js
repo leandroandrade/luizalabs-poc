@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const { createError } = require('../../commons/http-error');
+const { BusinessError } = require('../../commons/errors');
 const clientes = require('../../dataproviders/clientes/clientes.data');
 
 exports.registraCliente = async (req, res, next) => {
@@ -7,7 +7,7 @@ exports.registraCliente = async (req, res, next) => {
 
     const isCadastrado = await clientes.isExiste(email);
     if (isCadastrado) {
-        return next(createError(400, `Cliente com email ${email} já registrado!`));
+        throw new BusinessError(`Cliente com email ${email} já registrado!`);
     }
 
     const cliente = { nome, email, id: uuidv4() };

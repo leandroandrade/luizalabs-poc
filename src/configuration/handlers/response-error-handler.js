@@ -1,10 +1,17 @@
 module.exports = (err, req, res, next) => {
-    const { status, message, messages } = err;
-    const response = {
-        mensagens: messages || [
-            { codigo: status || 500, mensagem: status ? message : 'Ocorreu um erro no servidor.' },
-        ],
-    };
+    const { statusCode, messages, message } = err;
 
-    return res.status(status || 500).send(response);
+    if (statusCode && messages) {
+        return res.status(statusCode).send({ mensagens: messages });
+    }
+
+    if (statusCode && message) {
+        return res.status(statusCode).send({
+            mensagens: [{ codigo: statusCode, mensagem: message }],
+        });
+    }
+
+    return res.status(500).send({
+        mensagens: messages || [{ codigo: 500, mensagem: 'Ocorreu um erro no servidor.' }],
+    });
 };

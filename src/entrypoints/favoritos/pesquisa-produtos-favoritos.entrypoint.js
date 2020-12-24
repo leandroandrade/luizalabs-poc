@@ -1,17 +1,17 @@
 const favoritos = require('../../dataproviders/favoritos/favoritos.data');
 const { isPaginaInvalida } = require('../../commons/paginacao');
-const { createError } = require('../../commons/http-error');
+const { InvalidQueryStringError } = require('../../commons/errors');
 
 exports.pesquisaProdutosFavoritos = async (req, res, next) => {
     const { idCliente } = req.params;
     const { pagina, registrosPorPagina } = req.query;
 
     if (pagina && isPaginaInvalida(pagina)) {
-        return next(createError(400, 'A pagina informada é inválida!'));
+        throw new InvalidQueryStringError('A pagina informada é inválida!');
     }
 
     if (registrosPorPagina && isPaginaInvalida(registrosPorPagina)) {
-        return next(createError(400, 'Os registrosPorPagina informado é inválido!'));
+        throw new InvalidQueryStringError('Os registrosPorPagina informado é inválido!');
     }
 
     const result = await favoritos.porCliente({

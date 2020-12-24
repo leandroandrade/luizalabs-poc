@@ -1,5 +1,5 @@
-const { createError } = require('../../commons/http-error');
 const clientes = require('../../dataproviders/clientes/clientes.data');
+const { BusinessError } = require('../../commons/errors');
 
 exports.atualizaCliente = async (req, res, next) => {
     const { id } = req.params;
@@ -7,7 +7,7 @@ exports.atualizaCliente = async (req, res, next) => {
 
     const isNaoExiste = await clientes.isNaoCadastrado(id);
     if (isNaoExiste) {
-        return next(createError(404, `Cliente com id ${id} não encontrado`));
+        throw new BusinessError(`Cliente com id ${id} não encontrado`, 404);
     }
 
     await clientes.atualiza({ id, nome });

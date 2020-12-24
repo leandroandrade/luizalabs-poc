@@ -1,4 +1,4 @@
-const { createError } = require('../../commons/http-error');
+const { BusinessError } = require('../../commons/errors');
 const clientes = require('../../dataproviders/clientes/clientes.data');
 const favoritos = require('../../dataproviders/favoritos/favoritos.data');
 
@@ -7,7 +7,7 @@ exports.removeCliente = async (req, res, next) => {
 
     const isNaoExiste = await clientes.isNaoCadastrado(id);
     if (isNaoExiste) {
-        return next(createError(404, `Cliente com id ${id} não encontrado`));
+        throw new BusinessError(`Cliente com id ${id} não encontrado`, 404);
     }
 
     await clientes.remove(id);
