@@ -7,9 +7,11 @@ const MongoDB = require('./configuration/databases/mongodb');
 const app = require('./app');
 
 MongoDB.connect()
-    .then(() => log.info('> MongoDB connected successful'))
+    .then(() => {
+        log.info('> MongoDB connected successful');
+
+        app.listen(process.env.PORT, () =>
+            log.info(`> luizalabs-poc start on port ${process.env.PORT} | ${process.env.NODE_ENV} `)
+        );
+    })
     .catch(err => log.info(err));
-
-const { PORT, NODE_ENV } = process.env;
-
-app.listen(PORT, () => log.info(`> luizalabs-poc start on port ${PORT} | ${NODE_ENV} `));
