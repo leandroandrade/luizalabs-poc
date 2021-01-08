@@ -3,8 +3,8 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const mongoMemory = new MongoMemoryServer();
 
-const mongodb = require('../../../../src/configuration/databases/mongodb');
-const app = require('../../../../src/app');
+const mongodb = require('../../../../../src/configuration/databases/mongodb');
+const app = require('../../../../../src/app');
 
 describe('Pesquisa clientes test', () => {
     beforeAll(async () => {

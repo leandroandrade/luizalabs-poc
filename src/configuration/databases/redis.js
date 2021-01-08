@@ -1,5 +1,5 @@
 const Redis = require('ioredis');
-const log = require('../log');
+const log = require('../logger');
 
 const { REDIS_HOST, REDIS_PORT, TEMPO_CACHE_PRODUTO_SEGUNDOS = 120 } = process.env;
 

@@ -4,11 +4,11 @@ const nock = require('nock');
 
 const mongoMemory = new MongoMemoryServer();
 
-jest.mock('../../../../src/configuration/databases/redis');
-const redis = require('../../../../src/configuration/databases/redis');
+jest.mock('../../../../../src/configuration/databases/redis');
+const redis = require('../../../../../src/configuration/databases/redis');
 
-const mongodb = require('../../../../src/configuration/databases/mongodb');
-const app = require('../../../../src/app');
+const mongodb = require('../../../../../src/configuration/databases/mongodb');
+const app = require('../../../../../src/app');
 
 describe('Registra produto favorito test', () => {
     beforeAll(async () => {

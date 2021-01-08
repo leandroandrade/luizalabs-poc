@@ -3,10 +3,10 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const mongoMemory = new MongoMemoryServer();
 
-const mongodb = require('../../../../src/configuration/databases/mongodb');
-const app = require('../../../../src/app');
+const mongodb = require('../../../../../src/configuration/databases/mongodb');
+const app = require('../../../../../src/app');
 
-describe('Registra cliente test', () => {
+describe('Pesquisa cliente por ID test', () => {
     beforeAll(async () => {
         process.env.MONGODB_URL = await mongoMemory.getUri(true);
         process.env.MONGODB_DB = 'luizalabs';
@@ -26,33 +26,36 @@ describe('Registra cliente test', () => {
 
     it('deve retornar 404 caso o cliente nao exista', async done => {
         const { status } = await request(app)
-            .delete(`/api/v1/clientes/abc`)
+            .get('/api/v1/clientes/1')
             .set('Authorization', `${process.env.TOKEN_TEST}`);
 
         expect(status).toBe(404);
-
         done();
     });
 
-    it('deve remover o cliente', async done => {
+    it('deve retornar o cliente pelo ID', async done => {
         await mongodb
             .getCollection('clientes')
-            .insertOne({ id: 'abc', nome: 'Fulano Silva', email: 'fulano@email.com' });
+            .insertOne({ id: '1', nome: 'Fulano Silva', email: 'fulano@email.com' });
 
-        const { status } = await request(app)
-            .delete(`/api/v1/clientes/abc`)
-            .set('Authorization', `${process.env.TOKEN_TEST}`)
-            .send({ nome: 'Mock', email: 'mock@email.com' });
+        const { status, body } = await request(app)
+            .get('/api/v1/clientes/1')
+            .set('Authorization', `${process.env.TOKEN_TEST}`);
 
-        expect(status).toBe(204);
+        expect(status).toBe(200);
+        expect(body).not.toBeNull();
+        expect(body).not.toBeUndefined();
+
+        const { id, nome, email } = body;
+        expect(id).toBe('1');
+        expect(nome).toBe('Fulano Silva');
+        expect(email).toBe('fulano@email.com');
 
         done();
     });
 
     it('deve retornar 401 caso o token de autenticacao na seja informado', async done => {
-        const { status } = await request(app)
-            .delete(`/api/v1/clientes/abc`)
-            .send({ nome: 'Mock', email: 'mock@email.com' });
+        const { status } = await request(app).get('/api/v1/clientes/1');
 
         expect(status).toBe(401);
         done();
