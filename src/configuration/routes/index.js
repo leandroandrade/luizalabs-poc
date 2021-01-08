@@ -4,25 +4,27 @@ const { name, version } = require('../../../package.json');
 const authMiddleware = require('../middlewares/auth');
 const adminMiddleware = require('../middlewares/admin');
 
-const { geraTokenAcesso } = require('../../entrypoints/auth/auth.entrypoint');
+const { geraTokenAcesso } = require('../../entrypoints/rest/auth/auth.entrypoint');
 
-const { pesquisaClientes } = require('../../entrypoints/clientes/pesquisa-clientes.entrypoint');
+const {
+    pesquisaClientes,
+} = require('../../entrypoints/rest/clientes/pesquisa-clientes.entrypoint');
 const {
     pesquisaClientePorID,
-} = require('../../entrypoints/clientes/pesquisa-cliente-por-id.entrypoint');
-const { registraCliente } = require('../../entrypoints/clientes/registra-cliente.entrypoint');
-const { atualizaCliente } = require('../../entrypoints/clientes/atualiza-cliente.entrypoint');
-const { removeCliente } = require('../../entrypoints/clientes/remove-cliente.entrypoint');
+} = require('../../entrypoints/rest/clientes/pesquisa-cliente-por-id.entrypoint');
+const { registraCliente } = require('../../entrypoints/rest/clientes/registra-cliente.entrypoint');
+const { atualizaCliente } = require('../../entrypoints/rest/clientes/atualiza-cliente.entrypoint');
+const { removeCliente } = require('../../entrypoints/rest/clientes/remove-cliente.entrypoint');
 
 const {
     pesquisaProdutosFavoritos,
-} = require('../../entrypoints/favoritos/pesquisa-produtos-favoritos.entrypoint');
+} = require('../../entrypoints/rest/favoritos/pesquisa-produtos-favoritos.entrypoint');
 const {
     registraProdutoFavoritos,
-} = require('../../entrypoints/favoritos/registra-produto-favorito.entrypoint');
+} = require('../../entrypoints/rest/favoritos/registra-produto-favorito.entrypoint');
 const {
     removeProdutoFavoritos,
-} = require('../../entrypoints/favoritos/remove-produto-favoritos.entrypoint');
+} = require('../../entrypoints/rest/favoritos/remove-produto-favoritos.entrypoint');
 
 module.exports = app => {
     router.get('/', (_, res) =>

@@ -1,4 +1,4 @@
-const favoritos = require('../../dataproviders/favoritos/favoritos.data');
+const favoritos = require('../../../dataproviders/repositories/favoritos.repository');
 
 exports.removeProdutoFavoritos = async (req, res, next) => {
     const { idCliente, idProduto } = req.params;

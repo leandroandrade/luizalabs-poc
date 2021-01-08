@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
-const { BusinessError } = require('../../commons/errors');
-const clientes = require('../../dataproviders/clientes/clientes.data');
+const { BusinessError } = require('../../../commons/errors');
+const clientes = require('../../../dataproviders/repositories/clientes.repository');
 
 exports.registraCliente = async (req, res, next) => {
     const { nome, email } = req.body;

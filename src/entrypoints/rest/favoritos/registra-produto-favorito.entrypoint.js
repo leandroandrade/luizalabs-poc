@@ -1,6 +1,6 @@
-const { fetchProdutoAPI } = require('../../integration/challenge-luizalabs');
-const favoritos = require('../../dataproviders/favoritos/favoritos.data');
-const { InvalidInputError, BusinessError } = require('../../commons/errors');
+const { fetchProdutoAPI } = require('../../../dataproviders/api/luizalabs-api');
+const favoritos = require('../../../dataproviders/repositories/favoritos.repository');
+const { InvalidInputError, BusinessError } = require('../../../commons/errors');
 
 exports.registraProdutoFavoritos = async (req, res, next) => {
     const { idCliente } = req.params;

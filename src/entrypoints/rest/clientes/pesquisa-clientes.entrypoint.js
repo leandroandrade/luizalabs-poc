@@ -1,6 +1,6 @@
-const clientes = require('../../dataproviders/clientes/clientes.data');
-const { isPaginaInvalida } = require('../../commons/paginacao');
-const { InvalidQueryStringError } = require('../../commons/errors');
+const clientes = require('../../../dataproviders/repositories/clientes.repository');
+const { isPaginaInvalida } = require('../../../commons/paginacao');
+const { InvalidQueryStringError } = require('../../../commons/errors');
 
 exports.pesquisaClientes = async (req, res, next) => {
     const { pagina, registrosPorPagina } = req.query;

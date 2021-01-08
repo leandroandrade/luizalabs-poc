@@ -1,5 +1,5 @@
-const { BusinessError } = require('../../commons/errors');
-const clientes = require('../../dataproviders/clientes/clientes.data');
+const { BusinessError } = require('../../../commons/errors');
+const clientes = require('../../../dataproviders/repositories/clientes.repository');
 
 exports.pesquisaClientePorID = async (req, res, next) => {
     const { id } = req.params;

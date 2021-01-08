@@ -1,6 +1,6 @@
 const { sign } = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
-const { BusinessError } = require('../../commons/errors');
+const { BusinessError } = require('../../../commons/errors');
 
 const { JWT_SECRET } = process.env;
 

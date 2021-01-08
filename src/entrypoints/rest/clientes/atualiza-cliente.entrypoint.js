@@ -1,5 +1,5 @@
-const clientes = require('../../dataproviders/clientes/clientes.data');
-const { BusinessError } = require('../../commons/errors');
+const clientes = require('../../../dataproviders/repositories/clientes.repository');
+const { BusinessError } = require('../../../commons/errors');
 
 exports.atualizaCliente = async (req, res, next) => {
     const { id } = req.params;
