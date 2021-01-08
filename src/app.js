@@ -1,19 +1,14 @@
 const express = require('express');
 require('express-async-errors');
 
-const cors = require('cors');
-const helmet = require('helmet');
-
 const app = express();
 
+const setApp = require('./configuration/app');
 const setHanders = require('./configuration/handlers');
 const setRouters = require('./configuration/routes');
 const setDocumentation = require('./configuration/documentation');
 
-app.use(cors());
-app.use(helmet());
-app.use(express.json());
-
+setApp(app);
 setRouters(app);
 setHanders(app);
 setDocumentation(app);
