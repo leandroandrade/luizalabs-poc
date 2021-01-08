@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv-safe/config');
-}
+if (process.env.NODE_ENV !== 'test') require('dotenv-safe/config');
 
 const log = require('./configuration/logger');
 const MongoDB = require('./configuration/databases/mongodb');
