@@ -8,9 +8,12 @@ module.exports = {
             host: process.env.REDIS_HOST,
             keyPrefix: 'luizalabs:',
             showFriendlyErrorStack: true,
+            lazyConnect: true,
         });
-        client.on('connect', () => log.info('> RedisDB connected successful'));
 
+        await client.connect();
+
+        log.info('> RedisDB connected successful');
         this.client = client;
     },
 
