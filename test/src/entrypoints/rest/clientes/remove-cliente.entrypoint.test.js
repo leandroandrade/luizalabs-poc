@@ -21,7 +21,7 @@ describe('Registra cliente test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.getCollection('clientes').deleteMany({});
+        await mongodb.collection('clientes').deleteMany({});
     });
 
     it('deve retornar 404 caso o cliente nao exista', async done => {
@@ -36,7 +36,7 @@ describe('Registra cliente test', () => {
 
     it('deve remover o cliente', async done => {
         await mongodb
-            .getCollection('clientes')
+            .collection('clientes')
             .insertOne({ id: 'abc', nome: 'Fulano Silva', email: 'fulano@email.com' });
 
         const { status } = await request(app)

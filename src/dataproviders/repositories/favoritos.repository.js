@@ -1,13 +1,13 @@
-const { getCollection } = require('../../configuration/databases/mongodb');
+const { collection } = require('../../configuration/databases/mongodb');
 const { criaObjetoPaginacao } = require('../../commons/paginacao');
 
 const naoExistemFavoritos = totalClientes => totalClientes <= 0;
 const isPaginaMaiorTotalDePaginas = (pagina, totalPaginas) => pagina > totalPaginas;
 
-exports.registraProduto = favorito => getCollection('favoritos').insertOne(favorito);
+exports.registraProduto = favorito => collection('favoritos').insertOne(favorito);
 
 exports.isProdutoRegistrado = async ({ idCliente, idProduto }) => {
-    const total = await getCollection('favoritos').countDocuments({ idCliente, id: idProduto });
+    const total = await collection('favoritos').countDocuments({ idCliente, id: idProduto });
     return total > 0;
 };
 
@@ -16,7 +16,7 @@ exports.porCliente = async ({ idCliente, pagina, registrosPorPagina }) => {
         idCliente,
     };
 
-    const totalFavoritos = await getCollection('favoritos').countDocuments(filter);
+    const totalFavoritos = await collection('favoritos').countDocuments(filter);
     if (naoExistemFavoritos(totalFavoritos)) {
         return criaObjetoPaginacao();
     }
@@ -31,7 +31,7 @@ exports.porCliente = async ({ idCliente, pagina, registrosPorPagina }) => {
         idCliente: 0,
     };
 
-    const favoritos = await getCollection('favoritos')
+    const favoritos = await collection('favoritos')
         .aggregate([
             { $match: filter },
             { $project: projection },
@@ -44,10 +44,10 @@ exports.porCliente = async ({ idCliente, pagina, registrosPorPagina }) => {
     return criaObjetoPaginacao(totalFavoritos, +pagina, totalPaginas, favoritos.length, favoritos);
 };
 
-exports.removePorCliente = idCliente => getCollection('favoritos').deleteOne({ idCliente });
+exports.removePorCliente = idCliente => collection('favoritos').deleteOne({ idCliente });
 
 exports.remove = ({ idCliente, idProduto }) =>
-    getCollection('favoritos').deleteOne({
+    collection('favoritos').deleteOne({
         idCliente,
         id: idProduto,
     });

@@ -22,7 +22,7 @@ describe('Remove produto favoritos test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.getCollection('favoritos').deleteMany({});
+        await mongodb.collection('favoritos').deleteMany({});
     });
 
     it('deve retornar 401 caso o token de autenticacao nao seja informado', async done => {
@@ -48,7 +48,7 @@ describe('Remove produto favoritos test', () => {
             id: idProduto,
             title: 'Película Protetora para iPhone 6',
         };
-        await mongodb.getCollection('favoritos').insertOne(produto);
+        await mongodb.collection('favoritos').insertOne(produto);
 
         const { status } = await request(app)
             .delete(`/api/v1/clientes/${idCliente}/produtos/${idProduto}/favoritos`)

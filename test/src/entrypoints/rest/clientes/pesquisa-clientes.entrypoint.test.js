@@ -21,7 +21,7 @@ describe('Pesquisa clientes test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.getCollection('clientes').deleteMany({});
+        await mongodb.collection('clientes').deleteMany({});
     });
 
     it('deve retornar vazio caso na existam clientes', async done => {
@@ -49,7 +49,7 @@ describe('Pesquisa clientes test', () => {
 
     it('deve retornar a lista de clientes', async done => {
         await mongodb
-            .getCollection('clientes')
+            .collection('clientes')
             .insertOne({ nome: 'Fulano Silva', email: 'fulano@email.com' });
 
         const { status, body } = await request(app)
@@ -86,7 +86,7 @@ describe('Pesquisa clientes test', () => {
 
     it('deve retornar 400 caso a pagina seja invalida', async done => {
         await mongodb
-            .getCollection('clientes')
+            .collection('clientes')
             .insertOne({ nome: 'Fulano Silva', email: 'fulano@email.com' });
 
         const { status } = await request(app)
@@ -100,7 +100,7 @@ describe('Pesquisa clientes test', () => {
 
     it('deve retornar 400 caso o registrosPorPagina seja invalido', async done => {
         await mongodb
-            .getCollection('clientes')
+            .collection('clientes')
             .insertOne({ nome: 'Fulano Silva', email: 'fulano@email.com' });
 
         const { status } = await request(app)

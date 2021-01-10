@@ -22,7 +22,7 @@ describe('Pesquisa produtos favoritos test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.getCollection('favoritos').deleteMany({});
+        await mongodb.collection('favoritos').deleteMany({});
     });
 
     it('deve retornar 401 caso o token de autenticacao na seja informado', async done => {
@@ -46,7 +46,7 @@ describe('Pesquisa produtos favoritos test', () => {
             id: '0e062300-ac6f-ba7a-18c0-6fbed3af0498',
             title: 'Película Protetora para iPhone 6',
         };
-        await mongodb.getCollection('favoritos').insertOne(mockProduto);
+        await mongodb.collection('favoritos').insertOne(mockProduto);
 
         const { status, body } = await request(app)
             .get(`/api/v1/clientes/${idCliente}/favoritos/produtos`)

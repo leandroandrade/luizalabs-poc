@@ -1,11 +1,11 @@
-const { getCollection } = require('../../configuration/databases/mongodb');
+const { collection } = require('../../configuration/databases/mongodb');
 const { criaObjetoPaginacao } = require('../../commons/paginacao');
 
 const naoExistemClientes = totalClientes => totalClientes <= 0;
 const isPaginaMaiorTotalDePaginas = (pagina, totalPaginas) => pagina > totalPaginas;
 
 exports.todos = async ({ pagina, registrosPorPagina }) => {
-    const totalClientes = await getCollection('clientes').countDocuments();
+    const totalClientes = await collection('clientes').countDocuments();
 
     if (naoExistemClientes(totalClientes)) {
         return criaObjetoPaginacao();
@@ -20,7 +20,7 @@ exports.todos = async ({ pagina, registrosPorPagina }) => {
         _id: 0,
     };
 
-    const clientes = await getCollection('clientes')
+    const clientes = await collection('clientes')
         .aggregate([
             { $project: projection },
             { $skip: Number(registrosPorPagina * (pagina - 1)) },
@@ -32,21 +32,20 @@ exports.todos = async ({ pagina, registrosPorPagina }) => {
     return criaObjetoPaginacao(totalClientes, +pagina, totalPaginas, clientes.length, clientes);
 };
 
-exports.porID = id => getCollection('clientes').findOne({ id }, { projection: { _id: 0 } });
+exports.porID = id => collection('clientes').findOne({ id }, { projection: { _id: 0 } });
 
 exports.isNaoCadastrado = async id => {
-    const total = await getCollection('clientes').countDocuments({ id });
+    const total = await collection('clientes').countDocuments({ id });
     return total <= 0;
 };
 
 exports.isExiste = async email => {
-    const total = await getCollection('clientes').countDocuments({ email });
+    const total = await collection('clientes').countDocuments({ email });
     return total > 0;
 };
 
-exports.registra = cliente => getCollection('clientes').insertOne(cliente);
+exports.registra = cliente => collection('clientes').insertOne(cliente);
 
-exports.atualiza = ({ id, nome }) =>
-    getCollection('clientes').updateOne({ id }, { $set: { nome } });
+exports.atualiza = ({ id, nome }) => collection('clientes').updateOne({ id }, { $set: { nome } });
 
-exports.remove = id => getCollection('clientes').deleteOne({ id });
+exports.remove = id => collection('clientes').deleteOne({ id });

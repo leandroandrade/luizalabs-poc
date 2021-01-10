@@ -1,19 +1,24 @@
 const Redis = require('ioredis');
 const log = require('../logger');
 
-const { REDIS_HOST, REDIS_PORT, TEMPO_CACHE_PRODUTO_SEGUNDOS = 120 } = process.env;
+module.exports = {
+    async connect() {
+        const client = new Redis({
+            port: process.env.REDIS_PORT,
+            host: process.env.REDIS_HOST,
+            keyPrefix: 'luizalabs:',
+            showFriendlyErrorStack: true,
+        });
+        client.on('connect', () => log.info('> RedisDB connected successful'));
 
-const client = new Redis({
-    port: REDIS_PORT,
-    host: REDIS_HOST,
-    keyPrefix: 'luizalabs:',
-    showFriendlyErrorStack: true,
-});
+        this.client = client;
+    },
 
-client.on('connect', () => log.info('> Redis conectado com sucesso'));
+    disconnect() {
+        this.client.disconnect();
+    },
 
-const getCache = async key => client.get(`produtos:${key}`);
-const setCache = async (key, value) =>
-    client.set(`produtos:${key}`, JSON.stringify(value), 'EX', +TEMPO_CACHE_PRODUTO_SEGUNDOS);
-
-module.exports = { getCache, setCache };
+    getClient() {
+        return this.client;
+    },
+};

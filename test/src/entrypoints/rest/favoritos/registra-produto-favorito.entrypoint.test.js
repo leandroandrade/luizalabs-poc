@@ -26,7 +26,7 @@ describe('Registra produto favorito test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.getCollection('favoritos').deleteMany({});
+        await mongodb.collection('favoritos').deleteMany({});
     });
 
     it('deve retornar 401 caso o token de autenticacao nao seja informado', async done => {
@@ -72,7 +72,7 @@ describe('Registra produto favorito test', () => {
             title: 'Película Protetora para iPhone 6',
         };
 
-        await mongodb.getCollection('favoritos').insertOne({ ...produto, idCliente });
+        await mongodb.collection('favoritos').insertOne({ ...produto, idCliente });
 
         const { status } = await request(app)
             .post(`/api/v1/clientes/${idCliente}/favoritos/produtos`)

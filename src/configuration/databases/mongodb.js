@@ -1,18 +1,26 @@
 const { MongoClient } = require('mongodb');
+const log = require('../logger');
 
-const state = {
-    db: null,
-    client: null,
+module.exports = {
+    async connect() {
+        const client = await MongoClient.connect(process.env.MONGODB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        this.client = client;
+        this.db = client.db(process.env.MONGODB_DB);
+
+        log.info('> MongoDB connected successful');
+    },
+
+    async disconnect() {
+        await this.client.close();
+        this.client = null;
+        this.db = null;
+    },
+
+    collection(name) {
+        return this.db.collection(name);
+    },
 };
-
-exports.connect = async () => {
-    const client = await MongoClient.connect(process.env.MONGODB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-
-    state.client = client;
-    state.db = client.db(process.env.MONGODB_DB);
-};
-
-exports.getCollection = name => state.db.collection(name);

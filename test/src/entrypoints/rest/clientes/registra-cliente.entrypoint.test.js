@@ -21,7 +21,7 @@ describe('Registra cliente test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.getCollection('clientes').deleteMany({});
+        await mongodb.collection('clientes').deleteMany({});
     });
 
     it('deve registrar um cliente', async done => {

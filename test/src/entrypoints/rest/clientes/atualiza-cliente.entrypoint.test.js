@@ -21,17 +21,15 @@ describe('Atualiza cliente test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.getCollection('clientes').deleteMany({});
+        await mongodb.collection('clientes').deleteMany({});
     });
 
     it('deve alterar os dados do cliente', async done => {
         await mongodb
-            .getCollection('clientes')
+            .collection('clientes')
             .insertOne({ id: 'abc', nome: 'Fulano Silva', email: 'fulano@email.com' });
 
-        const cliente = await mongodb
-            .getCollection('clientes')
-            .findOne({ email: 'fulano@email.com' });
+        const cliente = await mongodb.collection('clientes').findOne({ email: 'fulano@email.com' });
 
         const { id } = cliente;
 
@@ -43,7 +41,7 @@ describe('Atualiza cliente test', () => {
         expect(status).toBe(204);
 
         const novoCliente = await mongodb
-            .getCollection('clientes')
+            .collection('clientes')
             .findOne({ email: 'fulano@email.com' });
 
         expect(novoCliente.nome).toBe('Novo nome');

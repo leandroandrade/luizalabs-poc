@@ -21,7 +21,7 @@ describe('Pesquisa cliente por ID test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.getCollection('clientes').deleteMany({});
+        await mongodb.collection('clientes').deleteMany({});
     });
 
     it('deve retornar 404 caso o cliente nao exista', async done => {
@@ -35,7 +35,7 @@ describe('Pesquisa cliente por ID test', () => {
 
     it('deve retornar o cliente pelo ID', async done => {
         await mongodb
-            .getCollection('clientes')
+            .collection('clientes')
             .insertOne({ id: '1', nome: 'Fulano Silva', email: 'fulano@email.com' });
 
         const { status, body } = await request(app)
