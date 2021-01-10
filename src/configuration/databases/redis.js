@@ -12,9 +12,9 @@ module.exports = {
         });
 
         await client.connect();
+        this.client = client;
 
         log.info('> RedisDB connected successful');
-        this.client = client;
     },
 
     disconnect() {
