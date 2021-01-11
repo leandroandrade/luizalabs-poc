@@ -1,5 +1,5 @@
 const favoritos = require('../../../dataproviders/repositories/favoritos.repository');
-const { isPaginaInvalida } = require('../../../commons/pagination/paginacao');
+const { isPaginaInvalida } = require('../../../commons/pagination');
 const { InvalidQueryStringError } = require('../../../commons/errors');
 
 exports.pesquisaProdutosFavoritos = async (req, res, next) => {
