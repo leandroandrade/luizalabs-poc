@@ -1,10 +1,8 @@
 const { get } = require('axios');
 const { getCache, setCache } = require('../../configuration/databases/redis');
+const { isNotFound } = require('../../commons/http-errors');
 
 const { API_LUIZALABS } = process.env;
-
-const NOT_FOUND = 404;
-const isNotFound = response => response && response.status === NOT_FOUND;
 
 exports.fetchProdutoAPI = async idProduto => {
     try {

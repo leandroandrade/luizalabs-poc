@@ -1,7 +1,8 @@
 if (process.env.NODE_ENV !== 'production') require('dotenv-safe/config');
 
-const { PORT, NODE_ENV } = process.env;
 const log = require('./configuration/logger');
+
+const { PORT, NODE_ENV } = process.env;
 const { MongoDB, RedisDB } = require('./configuration/databases');
 
 Promise.all([MongoDB.connect(), RedisDB.connect()])
