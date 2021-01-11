@@ -1,4 +1,4 @@
-const paginacao = require('../../../src/commons/paginacao');
+const paginacao = require('../../../src/commons/pagination/paginacao');
 
 describe('paginacao test', () => {
     it('deve retornar o objeto padrao de paginacao', async done => {

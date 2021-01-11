@@ -1,5 +1,5 @@
 const { collection } = require('../../configuration/databases/mongodb');
-const { criaObjetoPaginacao } = require('../../commons/paginacao');
+const { criaObjetoPaginacao } = require('../../commons/pagination/paginacao');
 
 const naoExistemFavoritos = totalClientes => totalClientes <= 0;
 const isPaginaMaiorTotalDePaginas = (pagina, totalPaginas) => pagina > totalPaginas;
