@@ -1,5 +1,5 @@
 const { collection } = require('../../configuration/databases/mongodb');
-const { criaObjetoPaginacao } = require('../../commons/pagination/paginacao');
+const { ResultadoPaginado } = require('../../commons/pagination');
 
 const naoExistemClientes = totalClientes => totalClientes <= 0;
 const isPaginaMaiorTotalDePaginas = (pagina, totalPaginas) => pagina > totalPaginas;
@@ -8,12 +8,12 @@ exports.todos = async ({ pagina, registrosPorPagina }) => {
     const totalClientes = await collection('clientes').countDocuments();
 
     if (naoExistemClientes(totalClientes)) {
-        return criaObjetoPaginacao();
+        return new ResultadoPaginado();
     }
 
     const totalPaginas = Math.ceil(totalClientes / registrosPorPagina);
     if (isPaginaMaiorTotalDePaginas(pagina, totalPaginas)) {
-        return criaObjetoPaginacao();
+        return new ResultadoPaginado();
     }
 
     const projection = {
@@ -29,7 +29,12 @@ exports.todos = async ({ pagina, registrosPorPagina }) => {
         ])
         .toArray();
 
-    return criaObjetoPaginacao(totalClientes, +pagina, totalPaginas, clientes.length, clientes);
+    return new ResultadoPaginado({
+        totalRegistros: totalClientes,
+        numeroPagina: +pagina,
+        totalPaginas,
+        resultado: clientes,
+    });
 };
 
 exports.porID = id => collection('clientes').findOne({ id }, { projection: { _id: 0 } });

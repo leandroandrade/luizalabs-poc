@@ -1,5 +1,5 @@
 const { collection } = require('../../configuration/databases/mongodb');
-const { criaObjetoPaginacao } = require('../../commons/pagination/paginacao');
+const { ResultadoPaginado } = require('../../commons/pagination');
 
 const naoExistemFavoritos = totalClientes => totalClientes <= 0;
 const isPaginaMaiorTotalDePaginas = (pagina, totalPaginas) => pagina > totalPaginas;
@@ -18,12 +18,12 @@ exports.porCliente = async ({ idCliente, pagina, registrosPorPagina }) => {
 
     const totalFavoritos = await collection('favoritos').countDocuments(filter);
     if (naoExistemFavoritos(totalFavoritos)) {
-        return criaObjetoPaginacao();
+        return new ResultadoPaginado();
     }
 
     const totalPaginas = Math.ceil(totalFavoritos / registrosPorPagina);
     if (isPaginaMaiorTotalDePaginas(pagina, totalPaginas)) {
-        return criaObjetoPaginacao();
+        return new ResultadoPaginado();
     }
 
     const projection = {
@@ -41,7 +41,12 @@ exports.porCliente = async ({ idCliente, pagina, registrosPorPagina }) => {
         ])
         .toArray();
 
-    return criaObjetoPaginacao(totalFavoritos, +pagina, totalPaginas, favoritos.length, favoritos);
+    return new ResultadoPaginado({
+        totalRegistros: totalFavoritos,
+        numeroPagina: +pagina,
+        totalPaginas,
+        resultado: favoritos,
+    });
 };
 
 exports.removePorCliente = idCliente => collection('favoritos').deleteOne({ idCliente });
