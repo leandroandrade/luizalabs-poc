@@ -1,10 +1,10 @@
 const { TEMPO_CACHE_PRODUTO_SEGUNDOS = 120 } = process.env;
 const RedisBD = require('../../../configuration/databases/redis');
 
-exports.getCache = async key => RedisBD.getClient().get(`produtos:${key}`);
+exports.getCache = async key => RedisBD.client().get(`produtos:${key}`);
 
 exports.setCache = async (key, value) =>
-    RedisBD.getClient().set(
+    RedisBD.client().set(
         `produtos:${key}`,
         JSON.stringify(value),
         'EX',

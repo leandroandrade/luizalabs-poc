@@ -3,7 +3,7 @@ const log = require('../logger');
 
 module.exports = {
     async connect() {
-        const client = new Redis({
+        const redis = new Redis({
             port: process.env.REDIS_PORT,
             host: process.env.REDIS_HOST,
             keyPrefix: 'luizalabs:',
@@ -11,17 +11,17 @@ module.exports = {
             lazyConnect: true,
         });
 
-        await client.connect();
-        this.client = client;
+        await redis.connect();
+        this.redis = redis;
 
         log.info('> RedisDB connected successful');
     },
 
     disconnect() {
-        this.client.disconnect();
+        this.redis.disconnect();
     },
 
-    getClient() {
-        return this.client;
+    client() {
+        return this.redis;
     },
 };
