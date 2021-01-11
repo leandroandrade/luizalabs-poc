@@ -15,7 +15,12 @@ module.exports = {
         ecmaVersion: 11,
     },
     rules: {
-        'prettier/prettier': 'error',
+        'prettier/prettier': [
+            'error',
+            {
+                endOfLine: 'auto',
+            },
+        ],
         'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
     },
 };

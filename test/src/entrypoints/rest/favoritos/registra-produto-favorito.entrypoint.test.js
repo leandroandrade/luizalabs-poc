@@ -8,7 +8,7 @@ jest.mock('../../../../../src/configuration/databases/redis');
 const redis = require('../../../../../src/configuration/databases/redis');
 
 const mongodb = require('../../../../../src/configuration/databases/mongodb');
-const app = require('../../../../../src/app');
+const app = require('../../../../../src/configuration/app');
 
 describe('Registra produto favorito test', () => {
     beforeAll(async () => {

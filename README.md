@@ -98,4 +98,4 @@ de autenticação:
 
 # Licença
 
-Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE.md](https://github.com/steniowagner/bon-appetit-app/blob/master/LICENSE) para obter detalhes
+Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE.md](https://github.com/leandroandrade/luizalabs-poc/tree/main/LICENSE) para obter detalhes
