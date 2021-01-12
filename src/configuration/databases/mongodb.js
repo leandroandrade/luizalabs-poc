@@ -11,7 +11,7 @@ module.exports = {
         this.client = client;
         this.db = client.db(process.env.MONGODB_DB);
 
-        log.info('> MongoDB connected successful');
+        log.info('MongoDB connected successful');
     },
 
     async disconnect() {

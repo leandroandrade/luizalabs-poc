@@ -14,7 +14,7 @@ module.exports = {
         await redis.connect();
         this.redis = redis;
 
-        log.info('> RedisDB connected successful');
+        log.info('RedisDB connected successful');
     },
 
     disconnect() {
