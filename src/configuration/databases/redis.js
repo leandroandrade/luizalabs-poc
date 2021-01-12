@@ -9,6 +9,7 @@ module.exports = {
             keyPrefix: 'luizalabs:',
             showFriendlyErrorStack: true,
             lazyConnect: true,
+            enableOfflineQueue: false,
         });
 
         await redis.connect();

@@ -1,5 +1,5 @@
 const { get } = require('axios');
-const { getCache, setCache } = require('../../configuration/databases/redis');
+const { getCache, setCache } = require('../repositories/redis/cache-repository');
 const { isNotFound } = require('../../commons/http-errors');
 
 const { API_LUIZALABS } = process.env;
