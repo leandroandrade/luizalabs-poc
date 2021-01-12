@@ -6,9 +6,9 @@ const { API_LUIZALABS } = process.env;
 
 exports.fetchProdutoAPI = async idProduto => {
     try {
-        const produtoCache = await getCache(idProduto);
-        if (produtoCache) {
-            return JSON.parse(produtoCache);
+        const cache = await getCache(idProduto);
+        if (cache) {
+            return cache;
         }
 
         const result = await get(`${API_LUIZALABS}/${idProduto}/`);
