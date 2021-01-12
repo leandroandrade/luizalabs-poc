@@ -1,13 +1,16 @@
-const { collection } = require('../../configuration/databases/mongodb');
+const MongoDB = require('../../configuration/databases/mongodb');
 const { ResultadoPaginado } = require('../../commons/pagination');
 
 const naoExistemFavoritos = totalClientes => totalClientes <= 0;
 const isPaginaMaiorTotalDePaginas = (pagina, totalPaginas) => pagina > totalPaginas;
 
-exports.registraProduto = favorito => collection('favoritos').insertOne(favorito);
+exports.registraProduto = favorito => MongoDB.collection('favoritos').insertOne(favorito);
 
 exports.isProdutoRegistrado = async ({ idCliente, idProduto }) => {
-    const total = await collection('favoritos').countDocuments({ idCliente, id: idProduto });
+    const total = await MongoDB.collection('favoritos').countDocuments({
+        idCliente,
+        id: idProduto,
+    });
     return total > 0;
 };
 
@@ -16,7 +19,7 @@ exports.porCliente = async ({ idCliente, pagina, registrosPorPagina }) => {
         idCliente,
     };
 
-    const totalFavoritos = await collection('favoritos').countDocuments(filter);
+    const totalFavoritos = await MongoDB.collection('favoritos').countDocuments(filter);
     if (naoExistemFavoritos(totalFavoritos)) {
         return new ResultadoPaginado();
     }
@@ -31,7 +34,7 @@ exports.porCliente = async ({ idCliente, pagina, registrosPorPagina }) => {
         idCliente: 0,
     };
 
-    const favoritos = await collection('favoritos')
+    const favoritos = await MongoDB.collection('favoritos')
         .aggregate([
             { $match: filter },
             { $project: projection },
@@ -49,10 +52,10 @@ exports.porCliente = async ({ idCliente, pagina, registrosPorPagina }) => {
     });
 };
 
-exports.removePorCliente = idCliente => collection('favoritos').deleteOne({ idCliente });
+exports.removePorCliente = idCliente => MongoDB.collection('favoritos').deleteOne({ idCliente });
 
 exports.remove = ({ idCliente, idProduto }) =>
-    collection('favoritos').deleteOne({
+    MongoDB.collection('favoritos').deleteOne({
         idCliente,
         id: idProduto,
     });
