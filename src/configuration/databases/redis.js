@@ -1,5 +1,9 @@
 const Redis = require('ioredis');
+const Promise = require('bluebird');
 const log = require('../logger');
+
+Promise.config({ cancellation: true });
+Redis.Promise = Promise;
 
 module.exports = {
     async connect() {
