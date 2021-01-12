@@ -9,7 +9,7 @@ const shutdown = (signal, server) => {
         log.info('HTTP server closed!');
 
         log.info('Closing RedisDB server...');
-        await RedisDB.disconnect();
+        RedisDB.disconnect();
         log.info('RedisDB server closed!');
 
         log.info('Closing MongoDB server...');
