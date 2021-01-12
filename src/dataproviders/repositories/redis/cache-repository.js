@@ -1,4 +1,4 @@
-const RedisBD = require('../../../configuration/databases/redis');
+const { RedisDB } = require('../../../configuration/databases');
 const log = require('../../../configuration/logger');
 
 const {
@@ -7,7 +7,7 @@ const {
 } = process.env;
 
 exports.getCache = async key =>
-    RedisBD.client()
+    RedisDB.client()
         .get(`produtos:${key}`)
         .timeout(REDIS_REQUEST_TIMEOUT_MILLISECONDS)
         .then(cache =>
@@ -16,7 +16,7 @@ exports.getCache = async key =>
         .catch(() => log.warn('ERROR_REDIS: timeout getCache'));
 
 exports.setCache = async (key, value) =>
-    RedisBD.client()
+    RedisDB.client()
         .set(`produtos:${key}`, JSON.stringify(value), 'EX', +TEMPO_CACHE_PRODUTO_SEGUNDOS)
         .timeout(REDIS_REQUEST_TIMEOUT_MILLISECONDS)
         .then(() => log.info(`REDIS: key ${key} included!`))
