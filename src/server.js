@@ -10,10 +10,10 @@ Promise.all([MongoDB.connect(), RedisDB.connect()])
     .then(() => {
         const app = require('./configuration/app');
 
-        const server = app.listen(PORT, () =>
-            log.info(`Luizalabs-poc start on port ${PORT} | ${NODE_ENV} `)
-        );
+        const server = app.listen(PORT, () => {
+            log.info(`Luizalabs-poc start on port ${PORT} | ${NODE_ENV} `);
 
-        terminate(server);
+            terminate(server);
+        });
     })
     .catch(err => log.error(err));
