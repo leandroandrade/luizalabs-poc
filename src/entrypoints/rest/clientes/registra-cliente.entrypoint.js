@@ -10,6 +10,14 @@ exports.registraCliente = async (req, res, next) => {
         throw new BusinessError(`Cliente com email ${email} já registrado!`);
     }
 
+    if (!nome || !nome.length) {
+        throw new BusinessError(`O nome do cliente deve ser informado!`);
+    }
+
+    if (!email || !email.length) {
+        throw new BusinessError(`O email do cliente deve ser informado!`);
+    }
+
     const cliente = { nome, email, id: uuidv4() };
     await clientes.registra({ ...cliente });
 

@@ -73,7 +73,29 @@ describe('Registra cliente test', () => {
         done();
     });
 
-    it('deve retornar 401 caso o token de autenticacao na seja informado', async done => {
+    it('deve retornar 400 caso o nome do cliente nao seja informado', async done => {
+        const { status: newStatus } = await request(app)
+            .post(`/api/v1/clientes`)
+            .set('Authorization', `${process.env.TOKEN_TEST}`)
+            .send({ email: 'mock@email.com' });
+
+        expect(newStatus).toBe(400);
+
+        done();
+    });
+
+    it('deve retornar 400 caso o email do cliente nao seja informado', async done => {
+        const { status: newStatus } = await request(app)
+            .post(`/api/v1/clientes`)
+            .set('Authorization', `${process.env.TOKEN_TEST}`)
+            .send({ nome: 'mock' });
+
+        expect(newStatus).toBe(400);
+
+        done();
+    });
+
+    it('deve retornar 401 caso o token de autenticacao nao seja informado', async done => {
         const { status } = await request(app)
             .post(`/api/v1/clientes`)
             .send({ nome: 'Mock', email: 'mock@email.com' });
