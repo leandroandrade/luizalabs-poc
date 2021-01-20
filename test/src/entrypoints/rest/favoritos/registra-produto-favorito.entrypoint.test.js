@@ -4,10 +4,10 @@ const nock = require('nock');
 
 const mongoMemory = new MongoMemoryServer();
 
-jest.mock('../../../../../src/configuration/databases/redis');
-const redis = require('../../../../../src/configuration/databases/redis');
+jest.mock('../../../../../src/dataproviders/repositories/redis/cache-repository');
+const redis = require('../../../../../src/dataproviders/repositories/redis/cache-repository');
 
-const mongodb = require('../../../../../src/configuration/databases/mongodb');
+const { MongoDB } = require('../../../../../src/configuration/databases');
 const app = require('../../../../../src/configuration/app');
 
 describe('Registra produto favorito test', () => {
@@ -15,7 +15,7 @@ describe('Registra produto favorito test', () => {
         process.env.MONGODB_URL = await mongoMemory.getUri(true);
         process.env.MONGODB_DB = 'luizalabs';
 
-        await mongodb.connect();
+        await MongoDB.connect();
 
         const { body } = await request(app)
             .post('/api/v1/auth')
@@ -26,7 +26,7 @@ describe('Registra produto favorito test', () => {
     });
 
     beforeEach(async () => {
-        await mongodb.collection('favoritos').deleteMany({});
+        await MongoDB.collection('favoritos').deleteMany({});
     });
 
     it('deve retornar 401 caso o token de autenticacao nao seja informado', async done => {
@@ -72,7 +72,7 @@ describe('Registra produto favorito test', () => {
             title: 'Película Protetora para iPhone 6',
         };
 
-        await mongodb.collection('favoritos').insertOne({ ...produto, idCliente });
+        await MongoDB.collection('favoritos').insertOne({ ...produto, idCliente });
 
         const { status } = await request(app)
             .post(`/api/v1/clientes/${idCliente}/favoritos/produtos`)
