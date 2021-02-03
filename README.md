@@ -42,12 +42,14 @@ Certificar-se de que possui o Node.js **v10** instalado. Em seguida, inicializar
 npm install
 ```
 
-2. Iniciar ambiente:
+2. Adicionar o arquivo **.env** com base no **.env.example**
+
+3. Iniciar ambiente:
 ```
 docker-compose -f docker-compose-dev.yml up -d
 ```
 
-3. Finalizar ambiente:
+4. Finalizar ambiente:
 ```
 docker-compose -f docker-compose-dev.yml stop
 ```
